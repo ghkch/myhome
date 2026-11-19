@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; img-src 'self' data:;">
+  <title>아름다운 사람</title>
+  <style>
+    :root {
+      --bg-color: #faf7f2;
+      --card-bg: #ffffff;
+      --text-main: #2c2825;
+      --text-sub: #5c544e;
+      --accent: #7a5c43;
+      --accent-hover: #5e4531;
+      --border: #e5ddd3;
+      --base-font: 18px;
+    }
+
+    body.large-text {
+      --base-font: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-size: var(--base-font);
+      line-height: 1.75;
+      word-break: keep-all;
+      transition: font-size 0.2s ease;
+    }
+
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .site-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .font-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 0.45rem 0.85rem;
+      transition: background-color 0.15s;
+    }
+
+    button:hover {
+      background-color: #efe9e0;
+    }
+
+    button.active {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    button.primary {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    button.primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    main {
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 0 1.2rem;
+    }
+
+    .intro-banner {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .intro-banner h2 {
+      font-size: 1.25em;
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+    }
+
+    .intro-banner p {
+      color: var(--text-sub);
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .story-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .story-meta {
+      font-size: 0.8em;
+      color: var(--text-sub);
+      margin-bottom: 0.5rem;
+    }
+
+    .story-card h3 {
+      font-size: 1.1em;
+      margin-bottom: 0.7rem;
+      color: var(--text-main);
+    }
+
+    .story-card p {
+      color: var(--text-sub);
+    }
+
+    .guestbook-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.95em;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .backup-controls {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .backup-hint {
+      font-size: 0.8em;
+      color: var(--text-sub);
+    }
+
+    .message-list {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .message-item {
+      background-color: var(--bg-color);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: var(--text-sub);
+      margin-bottom: 0.4rem;
+    }
+
+    footer {
+      max-width: 760px;
+      margin: 3rem auto 2rem;
+      padding: 1.5rem 1.2rem 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      text-align: center;
+    }
+
+    .diag-panel {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #2c2825;
+      color: #f4efe6;
+      border-radius: 8px;
+      text-align: left;
+      font-family: monospace;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .diag-panel.open {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="site-title">아름다운 사람</div>
+      <div class="font-controls" aria-label="글자 크기 조절">
+        <span>글씨 크기:</span>
+        <button type="button" id="btn-normal" class="active" onclick="setFontSize('normal')">보통</button>
+        <button type="button" id="btn-large" onclick="setFontSize('large')">크게</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="intro-banner">
+      <h2>소박하고 평범하게 살아가는 우리들의 이야기</h2>
+      <p>
+        특별할 것 없는 하루를 성실히 건너가는 나이기도 하고, 골목 어귀에서 반갑게 인사를 건네는 이웃이기도 합니다. 
+        거창한 말 대신 따뜻한 차 한 잔 같은 일상의 기록을 이곳에 조용히 담아둡니다.
+      </p>
+    </div>
+
+    <section aria-labelledby="stories-heading">
+      <h2 id="stories-heading" class="section-title">이웃과 나의 작은 기록</h2>
+
+      <article class="story-card">
+        <div class="story-meta">첫 번째 이야기 · 아침 골목길</div>
+        <h3>새벽 빗자루 소리가 깨우는 골목</h3>
+        <p>
+          해가 막 떠오를 무렵, 어김없이 들려오는 사각사각 빗자루 소리. 
+          누가 시키지 않아도 집 앞 골목을 쓸어내는 이웃의 뒷모습에서 하루를 살아갈 조용한 힘을 얻습니다.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <div class="story-meta">두 번째 이야기 · 식탁 위의 온기</div>
+        <h3>투박하지만 속이 꽉 찬 투박한 밥상</h3>
+        <p>
+          화려한 요리는 아니어도 제철 나물 무침에 따뜻한 국 한 그릇을 나누어 먹는 시간. 
+          "식사하셨어요?"라는 평범한 안부 인사가 사실은 가장 깊은 다정함임을 나이가 들수록 깨닫습니다.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <div class="story-meta">세 번째 이야기 · 오래된 풍경</div>
+        <h3>변해가는 거리 속에서도 남는 마음</h3>
+        <p>
+          익숙하던 간판들이 하나둘 자리를 옮기고 풍경이 달라져도, 
+          서로의 이름을 기억하고 안부를 물어
